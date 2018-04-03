@@ -8,3 +8,4 @@ use vagrant ansible\_local provisioner
 
 - vagrant
   - vagrant-vbguest plugin
+- virtualbox
