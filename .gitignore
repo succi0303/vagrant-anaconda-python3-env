@@ -1,5 +1,7 @@
-.vagrant/
-synced/
+/.vagrant/
+
+/synced/*
+!/synced/.gitkeep
 
 *.retry
 *.logs
