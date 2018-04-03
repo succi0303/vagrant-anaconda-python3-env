@@ -1,0 +1,1 @@
+{"virtualbox":{"/home/vagrant/synced":{"guestpath":"/home/vagrant/synced","hostpath":"/Users/succi0303/Documents/vagrant-anaconda-python3-env/synced","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"/Users/succi0303/Documents/vagrant-anaconda-python3-env","disabled":false,"__vagrantfile":true}}}

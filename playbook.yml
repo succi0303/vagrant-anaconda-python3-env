@@ -1,0 +1,33 @@
+- name: create anaconda python3 environment
+  hosts: all
+  vars:
+    anaconda_version: "anaconda3-5.1.0"
+    pyenv_home : "{{ ansible_env.HOME }}/.pyenv"
+    bash_profile_path: "{{ ansible_env.HOME }}/.bash_profile"
+  tasks:
+    - name: install packages
+      apt: pkg={{ item }} update_cache=yes cache_valid_time=3600
+      become: true
+      with_items:
+        - git
+        - vim
+    - name: git checkout pyenv
+      git:
+        repo: "https://github.com/pyenv/pyenv.git"
+        dest: "{{ pyenv_home }}"
+    - name: make sure ~/.bash_profile exists
+      file:
+        path: "{{ bash_profile_path }}"
+        state: touch
+    - name: add pyenv config to ~/.bash_profile
+      blockinfile:
+        path: "{{ bash_profile_path }}"
+        block: |
+          export PYENV_ROOT="$HOME/.pyenv"
+          export PATH="$PYENV_ROOT/bin:$PATH"
+          eval "$(pyenv init -)"
+    - name: install anaconda {{ anaconda_version }} via pyenv
+      shell: /bin/bash -cl "pyenv install -s {{ anaconda_version }}"
+    - name: set anaconda {{ anaconda_version }} as global
+      shell: /bin/bash -cl "pyenv global {{ anaconda_version }} && pyenv rehash"
+
